@@ -39,23 +39,27 @@ eval $(minikube -p minikube docker-env) # point kubectl to minikube's cluster
 kubectl config view
 kubectl cluster-info
 
-kubectl get nodes
+kubectl get nodes -o wide
 kubectl get pods -A
 
 kubectl apply -f https://raw.githubusercontent.com/ansible/awx-operator/0.13.0/deploy/awx-operator.yaml
-kubeclt describe deployment 
+kubeclt describe deployment
 watch kubectl get pods
+
+kubectl create namespace awx
+# kubectl config set-context --current --namespace awx
+# kubectl config set-context --current --namespace ""
 
 kubectl apply -f awx-demo.yml
-watch kubectl get pods
+watch kubectl get pods -n awx
 # kubectl logs -f deployments/awx-operator
 
-kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode
+kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" -n awx| base64 --decode
 
 kubectl apply -f awx-nginx.yml
-watch kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator" # -w
+watch kubectl get pods -n awx -l "app.kubernetes.io/managed-by=awx-operator" # -w
 
-kubectl get ingress
+kubectl get ingress -n aws
 
 # remove all stuff from minikube cluster
 kubectl delete daemonsets,replicasets,services,deployments,pods,rc --all
