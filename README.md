@@ -1,4 +1,4 @@
-# awx in a kubernetes cluster
+# awx-operator in a kubernetes cluster
 
 Based on [AWX Operator modue](https://github.com/ansible/awx-operator)
 

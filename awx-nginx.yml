@@ -7,4 +7,3 @@ spec:
   service_type: clusterip
   ingress_type: ingress
   hostname: rocky8
-
