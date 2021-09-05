@@ -1,6 +1,6 @@
 #!/bin/bash
 # awx-demo.sh -- setup and demo a kubernetes cluster running awx
-# done in minimum 4 core 16GB centos8/rocky8 laptop
+# done in minimum 4 core 16GB centos8 laptop
 
 
 yum install -y git make yum-utils epel-release
@@ -55,16 +55,9 @@ kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base
 kubectl apply -f awx-nginx.yml
 watch kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator" # -w
 
-
 kubectl get ingress
 
-
+# remove all stuff from minikube cluster
 kubectl delete daemonsets,replicasets,services,deployments,pods,rc --all
 kubectl get pods --no-headers=true --all-namespaces \
    | sed -r 's/(\S+)\s+(\S+).*/kubectl --namespace \1 delete pod \2/e'
-
-
-git clone https://github.com/asciinema/asciinema.git
-cd asciinema
-python3 -m asciinema --version
-python3 -m asciinema asciinema play 416946.cast

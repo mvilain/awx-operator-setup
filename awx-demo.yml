@@ -5,4 +5,4 @@ metadata:
   name: awx-demo
 spec:
   service_type: nodeport
-  hostname: rocky8
+  hostname: awx.example.com
