@@ -37,7 +37,7 @@ sudo mv linux-amd64/helm /usr/local/bin/
 helm version
 
 minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true \
-   --kubernetes-version=stable --memory=12g
+    --kubernetes-version=stable --memory=12g
 minikube status
 minikube addons list
 
@@ -62,12 +62,12 @@ watch kubectl get pods -n awx
 
 kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" -n awx| base64 --decode
 
+# use nginx for ingress controller
 kubectl apply -f awx-nginx.yml
 watch kubectl get pods -n awx -l "app.kubernetes.io/managed-by=awx-operator" # -w
+kubectl get ing -n aws #ingress
 
-kubectl get ingress -n aws
-
-# monitor metrics
+# monitor metrics required for HPA (Horizontal Pod Autoscaler)
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install -f values/metrics-server.yml metrics-server bitnami/metrics-server
 kubectl top nodes -n aws
@@ -75,6 +75,14 @@ kubectl top nodes -n aws
 # https://httpd.apache.org/docs/2.4/programs/ab.html
 # apache bench is installed on MacOS by default but needs httpd-tools for centos
 yum install -y httpd-tools
+
+# external DNS provider to tie k8s cluster to external DNS provider
+# https://github.com/kubernetes-sigs/external-dns
+# cert-manager uses Let's Encrypt which can't authenticate in many ISP's NAT environments
+kubectl create namespace cert-manager
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.crds.yaml
+helm repo add jetstack https://charts.jetstack.io
+helm install cert-manager jetstack/cert-manager -n cert-manager --version v1.1.0
 
 # remove all stuff from minikube cluster
 kubectl delete namespace awx # daemonsets,replicasets,services,deployments,pods,rc --all
