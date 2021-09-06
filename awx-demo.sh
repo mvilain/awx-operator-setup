@@ -80,9 +80,9 @@ yum install -y httpd-tools
 # https://github.com/kubernetes-sigs/external-dns
 # cert-manager uses Let's Encrypt which can't authenticate in many ISP's NAT environments
 kubectl create namespace cert-manager
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.crds.yaml
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.5.3/cert-manager.crds.yaml
 helm repo add jetstack https://charts.jetstack.io
-helm install cert-manager jetstack/cert-manager -n cert-manager --version v1.1.0
+helm install cert-manager jetstack/cert-manager -n cert-manager --version v1.5.3
 
 # remove all stuff from minikube cluster
 kubectl delete namespace awx # daemonsets,replicasets,services,deployments,pods,rc --all
