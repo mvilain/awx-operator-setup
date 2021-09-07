@@ -5,4 +5,5 @@ metadata:
   name: awx-demo
 spec:
   service_type: nodeport
-  hostname: awx.example.com
+  ingress_type: none
+  hostname: awx-demo.example.com
