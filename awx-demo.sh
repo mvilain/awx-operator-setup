@@ -31,8 +31,10 @@ minikube version
 ## and the README.md page from https://github.com/ansible/awx-operator.git
 ##
 ## start a local minikube cluster and point minikube to it (other contexts might use docker's minikube)
-minikube start --addons=ingress  --install-addons=true \
-    --kubernetes-version=stable --memory=12g
+## this works on rocky8 linux but not on MacOS with minikube or using the driver=docker
+# minikube start --addons=ingress --install-addons=true --kubernetes-version=stable --memory=12g
+minikube start --addons=ingress --install-addons=true --kubernetes-version=stable --memory=1988m
+
 minikube status
 minikube addons list
 
