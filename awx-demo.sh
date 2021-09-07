@@ -1,10 +1,6 @@
 #!/bin/bash
 ## awx-demo.sh -- setup and demo a kubernetes cluster running awx
 ## done in minimum 4 core 16GB centos8 laptop
-## this is the docker image repository where the awx-operator instance is to be deployed
-## it's currently set to use an ephemeral repository tt.sh and will keep it for 1 hour
-## (DO NOT USE THIS FOR PRODUCTION images)
-IMG_REPO=tt.sh:awx-operator-example:1h
 
 yum install -y git make yum-utils epel-release
 yum install -y ansible
@@ -30,41 +26,37 @@ chmod 755 /usr/local/bin/minikube
 minikube version
 
 ##--------------------------------------------------------------------------------
-
+##
 ## a lot of this came from this episode of Jeff Geerling's Kubernetes 101 course, episode 7
-git clone https://github.com/ansible/awx-operator.git
-cd awx-operator
-## create awx-operator container and push into tt.sh ephemeral registry for 1h
-make docker-build docker-push  IMG=${IMG_REPO}
-
+## and the README.md page from https://github.com/ansible/awx-operator.git
+##
 ## start a local minikube cluster and point minikube to it (other contexts might use docker's minikube)
 minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true \
     --kubernetes-version=stable --memory=12g
 minikube status
 minikube addons list
 
-eval $(minikube -p minikube docker-env) # point kubectl to minikube's cluster
+## point kubectl to minikube's cluster
+eval $(minikube -p minikube docker-env)
 kubectl config view
 kubectl cluster-info
 
-## install and deploy the awx-operator CRD (Custom Resource Definition)
-make install
-make deploy IMG=${IMG_REPO}
+## install and deploy the awx-operator CRD (Custom Resource Definition) from git repo
+kubectl apply -f https://raw.githubusercontent.com/ansible/awx-operator/0.13.0/deploy/awx-operator.yaml
 
 kubeclt describe deployment
-watch kubectl get pods
+kubectl get pods -w
 
-## now deploy an instance of AWX
-
-kubectl apply -f awx-demo.yml
-watch kubectl get pods
-#kubectl logs -f deployments/awx-operator
-
-kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" -n awx| base64 --decode
+## now deploy a simple nodeport instance of AWX
+# kubectl apply -f awx-demo.yml
+# watch kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator"
+# kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode
 
 ## use nginx for ingress controller
 kubectl apply -f awx-nginx.yml
-watch kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator" # -w
+kubectl kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator" -w
+kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode
+kubectl get nodes -o wide
 kubectl get ing # or ingress
 
 ## monitor metrics required for HPA (Horizontal Pod Autoscaler)
