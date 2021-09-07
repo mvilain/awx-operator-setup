@@ -33,7 +33,7 @@ minikube version
 ## start a local minikube cluster and point minikube to it (other contexts might use docker's minikube)
 minikube start --addons=ingress  --install-addons=true \
     --kubernetes-version=stable --memory=12g
-minikube kubectl -- status
+minikube status
 minikube addons list
 
 ## point kubectl to minikube's cluster
@@ -56,13 +56,13 @@ kubectl get pods -w
 ## use nginx for ingress controller
 kubectl apply -f awx-nginx-ingress.yml
 
-# if you watch the log with
+## if you watch the log with
 # kubectl logs -f deployments/awx-operator
-# ansible will report a failure on line 20 of this file:
-# https://github.com/ansible/awx-operator/blob/devel/roles/installer/tasks/resources_configuration.yml
-# and the awx-nginx pod fails to deploy. The awx-nginx-postgres pod is fine.
+## ansible will report a failure on line 20 of this file:
+## https://github.com/ansible/awx-operator/blob/devel/roles/installer/tasks/resources_configuration.yml
+## and the awx-nginx pod fails to deploy. The awx-nginx-postgres pod is fine.
 
-kubectl kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator" -w
+kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator" -w
 kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode
 kubectl get nodes -o wide
 kubectl get ing # or ingress
