@@ -15,6 +15,8 @@ with lots of help from [Jeff Geerling's Kubernetes 101 Episode 7](https://www.yo
     kubectl get nodes -o wide # shows IP address for node w/ IP address
     kubectl get pods -A       # shows all pods with their port info
 
+    https://www.cloudytuts.com/tutorials/kubernetes/how-to-set-default-kubernetes-namespace/
+
 ## Demo of actual implementation of awx-operator
 
 The demo file awx-operator.cast can be viewed using the python3 module 

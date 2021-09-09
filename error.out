@@ -1,0 +1,66 @@
+ 09/09/2021   16:10.26   /home/mobaxterm/MyDocuments/awx-setup   main  kubectl apply -f awx-operator.yaml
+customresourcedefinition.apiextensions.k8s.io/awxs.awx.ansible.com created
+customresourcedefinition.apiextensions.k8s.io/awxbackups.awx.ansible.com created
+customresourcedefinition.apiextensions.k8s.io/awxrestores.awx.ansible.com created
+serviceaccount/awx-operator created
+deployment.apps/awx-operator created
+Error from server (Forbidden): error when creating "awx-operator.yaml": clusterroles.rbac.authorization.k8s.io "awx-operator" is forbidden: user "u-22p5ce4yp2" (gr
+oups=["activedirectory_group://CN=AMR Contractor,OU=MIIS,OU=Application Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=AnyConnect_Re
+mote Access Users,OU=Rialto,OU=Application Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=AllCW_130185 - IT,OU=Rialto,OU=Application
+ Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=dnswebtool_devtools_intel_com,OU=Rialto,OU=Application Managed,OU=Groups,DC=amr,DC=c
+orp,DC=intel,DC=com" "activedirectory_group://CN=GitHub_IT,OU=Rialto,OU=Application Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=D
+BaaS_int_users,OU=Rialto,OU=Application Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=DevTools_Artifactory_support_L2,OU=Rialto,OU=
+Application Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=ORGU01204 - ES Product Engineering,OU=Org Unit Number,OU=Application Mana
+ged,OU=Groups,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=AllSiteUsers_OR,OU=Rialto,OU=Application Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "acti
+vedirectory_group://CN=ITPortal_ContentManager_Prod,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=EC UNIX ACCESS GLOBAL TEAMS HW
+-JENKINS ADMINS,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=GitLab Users,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com"
+"activedirectory_group://CN=CaaS Users_corp,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=DevTools-CJE-CJOC-Admins,OU=Managed,OU
+=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=Rally Access_OneIT Workspace_182531535356_User,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=
+com" "activedirectory_group://CN=PAM Admin Account,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=PAM SAFE USER-APP-PR-U-Artifact
+ory-11161,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=ec ger unix igk nonvas_sps,OU=ADGroups,OU=igk,OU=UNIX,OU=Engineering Com
+puting,OU=Resources,DC=ger,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=IT PD APT BTRM,OU=Delegated,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirect
+ory_group://CN=EC Unix Access Global Teams Jenkins Login,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=Site OR,OU=Site,OU=Applic
+ation Managed,OU=Groups,DC=corp,DC=intel,DC=com" "activedirectory_group://CN=aaplatform_eck_artifactory_admin,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com"
+"activedirectory_group://CN=EC Unix Access Global Teams TeamCity Ops CW,OU=Managed,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com" "system:authenticated" "system:cattle:
+authenticated"]) is attempting to grant RBAC permissions not currently held:
+{APIGroups:[""], Resources:["configmaps"], Verbs:["*"]}
+{APIGroups:[""], Resources:["endpoints"], Verbs:["*"]}
+{APIGroups:[""], Resources:["events"], Verbs:["*"]}
+{APIGroups:[""], Resources:["persistentvolumeclaims"], Verbs:["*"]}
+{APIGroups:[""], Resources:["pods"], Verbs:["*"]}
+{APIGroups:[""], Resources:["rolebindings"], Verbs:["*"]}
+{APIGroups:[""], Resources:["roles"], Verbs:["*"]}
+{APIGroups:[""], Resources:["secrets"], Verbs:["*"]}
+{APIGroups:[""], Resources:["serviceaccounts"], Verbs:["*"]}
+{APIGroups:[""], Resources:["services"], Verbs:["*"]}
+{APIGroups:[""], Resources:["services/finalizers"], Verbs:["*"]}
+{APIGroups:["apps"], Resources:["daemonsets"], Verbs:["*"]}
+{APIGroups:["apps"], Resources:["deployments"], Verbs:["*"]}
+{APIGroups:["apps"], Resources:["deployments/finalizers"], ResourceNames:["awx-operator"], Verbs:["update"]}
+{APIGroups:["apps"], Resources:["deployments/scale"], Verbs:["patch"]}
+{APIGroups:["apps"], Resources:["ingresses"], Verbs:["*"]}
+{APIGroups:["apps"], Resources:["replicasets"], Verbs:["*"]}
+{APIGroups:["apps"], Resources:["statefulsets"], Verbs:["*"]}
+{APIGroups:["awx.ansible.com"], Resources:["*"], Verbs:["*"]}
+{APIGroups:["awx.ansible.com"], Resources:["awxbackups"], Verbs:["*"]}
+{APIGroups:["awx.ansible.com"], Resources:["awxrestores"], Verbs:["*"]}
+{APIGroups:["extensions"], Resources:["daemonsets"], Verbs:["*"]}
+{APIGroups:["extensions"], Resources:["deployments"], Verbs:["*"]}
+{APIGroups:["extensions"], Resources:["ingresses"], Verbs:["*"]}
+{APIGroups:["extensions"], Resources:["replicasets"], Verbs:["*"]}
+{APIGroups:["extensions"], Resources:["statefulsets"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["configmaps"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["endpoints"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["events"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["persistentvolumeclaims"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["pods"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["rolebindings"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["roles"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["secrets"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["serviceaccounts"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["services"], Verbs:["*"]}
+{APIGroups:["rbac.authorization.k8s.io"], Resources:["services/finalizers"], Verbs:["*"]}
+{APIGroups:["route.openshift.io"], Resources:["routes"], Verbs:["*"]}
+{APIGroups:["route.openshift.io"], Resources:["routes/custom-host"], Verbs:["*"]}; resolution errors: [clusterroles.rbac.authorization.k8s.io "p-9mcsm-namespaces-r
+eadonly" not found]
+Error from server (NotFound): error when creating "awx-operator.yaml": clusterroles.rbac.authorization.k8s.io "awx-operator" not found
