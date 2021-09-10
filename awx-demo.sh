@@ -3,7 +3,7 @@
 ## done in minimum 4 core 16GB centos8 laptop
 ##--------------------------------------------------------------------------------
 
-kubectl config set-context --current --namespace=ansible-uat
+kubectl config set-context --current #--namespace=ansible-uat
 kubectl config view
 kubectl cluster-info
 
