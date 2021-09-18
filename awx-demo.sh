@@ -17,6 +17,10 @@ kubectl apply -f awx-operator.yaml
 kubectl describe deployment
 kubectl get pods -w
 
+## awx-operator requires the prometheus operator to create a ServiceMonitor resource
+## https://github.com/prometheus-operator/prometheus-operator
+
+
 ## now deploy a simple nodeport instance of AWX
 # kubectl apply -f awx-demo.yml
 # watch kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator"
@@ -32,8 +36,13 @@ kubectl apply -f awx-nginx-ingress.yml
 ## and the awx-nginx pod fails to deploy. The awx-nginx-postgres pod is fine.
 
 kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator" -w
+kubectl get svc -l "app.kubernetes.io/managed-by=awx-operator"
+
 kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode
 kubectl get nodes -o wide
+
+nohup minikube tunnel &
+
 kubectl get ing # or ingress
 
 ## monitor metrics required for HPA (Horizontal Pod Autoscaler)
@@ -62,4 +71,3 @@ kubectl get ing # or ingress
 
 ## remove all stuff from minikube cluster
 kubectl delete -f awx-nginx.yml
-make undeploy
