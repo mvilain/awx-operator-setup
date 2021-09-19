@@ -12,18 +12,15 @@ kubectl cluster-info
 
 ## install and deploy the awx-operator CRD (Custom Resource Definition) from git repo
 ## from https://raw.githubusercontent.com/ansible/awx-operator/0.13.0/deploy/awx-operator.yaml
-kubectl apply -f awx-operator.yaml
-
+## awx-operator requires the prometheus operator to create a ServiceMonitor resource
+## https://github.com/prometheus-operator/prometheus-operatorkubectl apply -f awx-operator.yaml
+kubectl apply -f prometheus-operator.yaml
 kubectl describe deployment
 kubectl get pods -w
 
-## awx-operator requires the prometheus operator to create a ServiceMonitor resource
-## https://github.com/prometheus-operator/prometheus-operator
-
-
 ## now deploy a simple nodeport instance of AWX
-# kubectl apply -f awx-demo.yml
-# watch kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator"
+kubectl apply -f ansible-awx.yaml
+watch kubectl get pods -l "app.kubernetes.io/managed-by=awx-operator"
 # kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode
 
 ## use nginx for ingress controller
