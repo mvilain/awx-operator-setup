@@ -34,11 +34,11 @@ minikube version
 ## this works on rocky8 linux but not on MacOS with minikube or using the driver=docker
 ## 9/17/21 minikube 1.23.1 works while 1.23 had an rbac error
 ##
-# minikube start --addons=ingress --install-addons=true --kubernetes-version=stable --memory=12g
+## https://www.linuxtechi.com/install-ansible-awx-kubernetes-minikube/
 
 minikube delete --all --purge
 minikube config set driver virtualbox
-minikube start --addons=ingress --install-addons=true --kubernetes-version=stable --memory=12g --cpus=6
+minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=8g
 
 minikube addons enable dashboard metric-server
 # https://acloud.guru/forums/kubernetes-fundamental/discussion/-M3IUId85EifmxB9uV3l/minikube%20dashboard%20enable%20fails%20on%20MacOS%20Catalina
